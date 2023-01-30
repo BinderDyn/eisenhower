@@ -8,10 +8,28 @@
       </div>
     </div>
     <div id="right-wrapper">
-      <router-view />
+      <div class="main-layout">
+        <main id="main">
+          <router-view />
+        </main>
+        <div id="footer">
+          <Footer />
+        </div>
+      </div>
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import Footer from "@/components/footer/Footer.vue";
+
+export default defineComponent({
+  components: {
+    Footer,
+  },
+});
+</script>
 
 <style>
 * {
@@ -41,6 +59,24 @@ body {
   overflow-y: hidden;
 }
 
+.main-layout {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#main {
+  flex-grow: 9;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+#footer-area {
+  flex-grow: 1;
+  display: block;
+}
+
 #left-wrapper {
   min-width: 300px;
   height: 100%;
@@ -57,20 +93,20 @@ body {
 .main-title {
   margin-top: 30px;
   border-bottom: 4px solid #ffffff;
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
 .main-title a {
   font-size: 1rem;
   font-weight: bold;
   color: #ffffff;
+  text-decoration: none;
 }
 
 .main-title a h1 {
   margin-bottom: 20px;
-}
-
-.main-title a {
-  border-bottom: 2px solid #ffffff;
 }
 
 .main-title a.router-link-exact-active {
