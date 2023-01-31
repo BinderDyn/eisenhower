@@ -6,6 +6,7 @@
           <h1><i class="fa-solid fa-chart-simple"></i> Eisenhower</h1>
         </router-link>
       </div>
+      <TaskList />
     </div>
     <div id="right-wrapper">
       <div class="main-layout">
@@ -23,9 +24,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Footer from "@/components/footer/Footer.vue";
+import TaskList from "./components/task-list/TaskList.vue";
 
 export default defineComponent({
   components: {
+    TaskList,
     Footer,
   },
 });
