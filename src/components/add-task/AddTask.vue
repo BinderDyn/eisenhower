@@ -1,19 +1,21 @@
 <template>
   <div class="wrapper">
-    <div class="flex">
-      <input type="text" id="task-name" v-model="task.name" />
-      <select id="task-priority" v-model="task.priority">
-        <option
-          v-for="prio in Object.keys(Priority).filter((item) =>
-            isNaN(Number(item))
-          )"
-          :key="prio"
-        >
-          {{ prio }}
-        </option>
-      </select>
-    </div>
-    <button type="button">Add task</button>
+    <form id="add-task-form" @on-submit="(e: SubmitEvent) => addTask(e, task)">
+      <div class="flex">
+        <input type="text" id="task-name" v-model="task.name" />
+        <select id="task-priority" v-model="task.priority">
+          <option
+            v-for="prio in Object.keys(Priority).filter((item) =>
+              isNaN(Number(item))
+            )"
+            :key="prio"
+          >
+            {{ prio }}
+          </option>
+        </select>
+      </div>
+      <button type="submit">Add task</button>
+    </form>
   </div>
 </template>
 
@@ -24,6 +26,12 @@ import { Task } from "@/models/Task";
 
 export default defineComponent({
   name: "AddTaskComponent",
+  methods: {
+    addTask(ev: SubmitEvent, task: Task): void {
+      ev.preventDefault();
+      console.log(task);
+    },
+  },
   data() {
     return {
       task: {
