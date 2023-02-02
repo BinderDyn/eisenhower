@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <form id="add-task-form" @on-submit="(e: SubmitEvent) => addTask(e, task)">
+    <form id="add-task-form" @submit.prevent="addTask()">
       <div class="flex">
         <input type="text" id="task-name" v-model="task.name" />
         <select id="task-priority" v-model="task.priority">
@@ -14,7 +14,7 @@
           </option>
         </select>
       </div>
-      <button type="submit">Add task</button>
+      <input type="submit" value="Add task" />
     </form>
   </div>
 </template>
@@ -27,9 +27,8 @@ import { Task } from "@/models/Task";
 export default defineComponent({
   name: "AddTaskComponent",
   methods: {
-    addTask(ev: SubmitEvent, task: Task): void {
-      ev.preventDefault();
-      console.log(task);
+    addTask(): void {
+      console.log(this.task);
     },
   },
   data() {
@@ -48,7 +47,7 @@ export default defineComponent({
 .flex {
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 input {
@@ -65,19 +64,24 @@ select {
   font-size: 0.9rem;
 }
 
-button {
-  padding: 10px;
+input[type="submit"] {
+  cursor: pointer;
+  height: 40px;
+  width: 120px;
   margin: 15px 0px;
   border-radius: 15px;
-  width: 100%;
   background-color: rgb(0, 0, 156);
   color: white;
   text-transform: uppercase;
   font-weight: 800;
 }
 
-.button:focus {
-  background-color: rgb(0, 0, 113);
+input[type="submit"]:hover {
+  background-color: darkblue;
+}
+
+input[type="submit"]:hover {
+  background-color: darkblue;
 }
 
 .wrapper {

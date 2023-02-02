@@ -34,7 +34,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-  ],
+, "src/components/add-task/AddTask.spec.js", "src/components/add-task/AddTask.spec.js"  ],
   "exclude": [
     "node_modules"
   ]
