@@ -1,26 +1,22 @@
 <template>
   <ul class="task-list">
-    <li>Test</li>
-    <li>This is an even longer test</li>
-    <li>And another, even longer test than the original</li>
-    <li>Test</li>
-    <li>This is an even longer test</li>
-    <li>And another, even longer test than the original</li>
-    <li>Test</li>
-    <li>This is an even longer test</li>
-    <li>And another, even longer test than the original</li>
-    <li>Test</li>
-    <li>This is an even longer test</li>
-    <li>And another, even longer test than the original</li>
+    <li v-for="task in taskStore.getAllTasks" :key="task.name">
+      {{ task.name }}
+    </li>
   </ul>
 </template>
 
 <script lang="ts">
+import { useTaskStore } from "@/stores/taskStore";
+import { mapStores } from "pinia";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "TaskListComponent",
   methods: {},
+  computed: {
+    ...mapStores(useTaskStore),
+  },
 });
 </script>
 

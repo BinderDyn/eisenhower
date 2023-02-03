@@ -22,13 +22,18 @@
 <script lang="ts">
 import { Priority } from "@/models/Priority.enum";
 import { Task } from "@/models/Task";
+import { useTaskStore } from "@/stores/taskStore";
+import { mapStores } from "pinia";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "AddTaskComponent",
   methods: {
     addTask(): void {
-      console.log(this.task);
+      this.taskStore.addTask({
+        name: this.task.name,
+        priority: this.task.priority,
+      });
     },
   },
   data() {
@@ -39,6 +44,9 @@ export default defineComponent({
       } as Task,
       Priority: Priority,
     };
+  },
+  computed: {
+    ...mapStores(useTaskStore),
   },
 });
 </script>
