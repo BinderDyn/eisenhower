@@ -1,8 +1,14 @@
-import { DOMWrapper, mount, shallowMount } from "@vue/test-utils";
+import { DOMWrapper, mount } from "@vue/test-utils";
+import { createTestingPinia } from "@pinia/testing";
 import AddTaskComponent from "../AddTask.vue";
+import { useTaskStore } from "@/stores/taskStore";
 
 test("sets task name", async () => {
-  const wrapper = mount(AddTaskComponent);
+  const wrapper = mount(AddTaskComponent, {
+    global: {
+      plugins: [createTestingPinia()],
+    },
+  });
   const input: DOMWrapper<HTMLInputElement> = wrapper.find("#task-name");
 
   await input.setValue("test");
@@ -19,14 +25,18 @@ test("sets task priority", async () => {
   expect(input.element.value).toBe("A");
 });
 
-// test("submits on button click", async () => {
-//   const wrapper = shallowMount(AddTaskComponent);
-//   const input: DOMWrapper<HTMLButtonElement> = wrapper.find("#submit-form-btn");
+test("submits on button click", async () => {
+  const wrapper = mount(AddTaskComponent, {
+    attachTo: document.body,
+    global: {
+      plugins: [createTestingPinia()],
+    },
+  });
+  const store = useTaskStore();
+  const formButton: DOMWrapper<HTMLButtonElement> =
+    wrapper.find("#submit-form-btn");
 
-//   await input.element.click();
+  await formButton.trigger("click");
 
-
-//   expect(wrapper.setProps({
-//     computed: .fn()
-//   })).toThrow();
-// });
+  expect(store.addTask).toHaveBeenCalledTimes(1);
+});
