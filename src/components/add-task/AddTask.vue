@@ -14,15 +14,15 @@
           </option>
         </select>
       </div>
-      <input type="submit" value="Add task" />
+      <input id="submit-form-btn" type="submit" value="Add task" />
     </form>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
 import { Priority } from "@/models/Priority.enum";
 import { Task } from "@/models/Task";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "AddTaskComponent",
