@@ -17,6 +17,8 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import { Task } from "@/models/Task";
+import { useTaskStore } from "@/stores/taskStore";
+import { mapStores, storeToRefs } from "pinia";
 
 export default defineComponent({
   name: "TaskComponent",
@@ -29,8 +31,12 @@ export default defineComponent({
   methods: {
     deleteTask(taskId: string) {
       if (confirm("Do you really want to delete this task?")) {
+        this.taskStore.deleteTask(taskId);
       }
     },
+  },
+  computed: {
+    ...mapStores(useTaskStore),
   },
 });
 </script>

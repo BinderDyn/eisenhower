@@ -1,3 +1,4 @@
+import { Priority } from "@/models/Priority.enum";
 import { useTaskStore } from "@/stores/taskStore";
 import { createTestingPinia } from "@pinia/testing";
 import { mount } from "@vue/test-utils";

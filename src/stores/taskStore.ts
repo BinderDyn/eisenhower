@@ -12,8 +12,8 @@ export const useTaskStore = defineStore(taskStoreKey, {
   state: (): ITasksState => ({ tasks: [] }),
   getters: {
     getAllTasks(state: ITasksState) {
-      state.tasks = getItems();
-      return state.tasks.slice().sort((a, b) => {
+      const tasks = state.tasks.length > 0 ? state.tasks.slice() : getItems();
+      return tasks.sort((a, b) => {
         if (a.priority > b.priority) return 1;
         if (a.priority < b.priority) return -1;
         return 0;
@@ -26,6 +26,10 @@ export const useTaskStore = defineStore(taskStoreKey, {
       const savedTasks = getItems();
       savedTasks.push(task);
       setTasks(savedTasks);
+    },
+    deleteTask(id: string) {
+      this.tasks = this.tasks.filter((t) => t.id !== id);
+      setTasks(this.tasks);
     },
   },
 });
