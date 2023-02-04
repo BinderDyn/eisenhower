@@ -4,9 +4,6 @@
 name: Build and test develop branch
 
 on:
-  schedule:
-    - cron: "0 2 * * *"
-    # At 2 am
   push:
     branches: ["develop"]
   pull_request:
@@ -23,9 +20,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - id: nightly-check
-        name: Check for changes since last nightly
-        uses: lukecarr/nightly-check@v0.1.0
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
