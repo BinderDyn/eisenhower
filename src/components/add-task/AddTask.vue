@@ -2,14 +2,15 @@
   <div class="wrapper">
     <form id="add-task-form" @submit.prevent="addTask()">
       <div class="flex">
-        <input type="text" id="task-name" v-model="task.name" />
+        <input type="text" id="task-name" required="true" v-model="task.name" />
         <select id="task-priority" v-model="task.priority">
           <option
             v-for="prio in Object.keys(Priority).filter((item) =>
               isNaN(Number(item))
             )"
             :key="prio"
-            :selected="prio == 'D'"
+            :value="prio"
+            :selected="prio === 'D'"
           >
             {{ prio }}
           </option>
