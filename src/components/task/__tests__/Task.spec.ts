@@ -3,7 +3,7 @@ import { useTaskStore } from "@/stores/taskStore";
 import { createTestingPinia } from "@pinia/testing";
 import { DOMWrapper, mount } from "@vue/test-utils";
 import Task from "../Task.vue";
-declare var global: any;
+declare let global: any;
 
 beforeAll(() => {
   global.confirm = jest.fn(() => true);
