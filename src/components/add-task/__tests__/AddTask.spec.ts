@@ -1,7 +1,7 @@
-import { DOMWrapper, mount } from "@vue/test-utils";
-import { createTestingPinia } from "@pinia/testing";
-import AddTaskComponent from "../AddTask.vue";
 import { useTaskStore } from "@/stores/taskStore";
+import { createTestingPinia } from "@pinia/testing";
+import { DOMWrapper, mount } from "@vue/test-utils";
+import AddTaskComponent from "../AddTask.vue";
 
 test("sets task name", async () => {
   const wrapper = mount(AddTaskComponent, {

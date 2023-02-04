@@ -9,6 +9,7 @@
               isNaN(Number(item))
             )"
             :key="prio"
+            :selected="prio == 'D'"
           >
             {{ prio }}
           </option>
