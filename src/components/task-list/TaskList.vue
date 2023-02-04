@@ -1,18 +1,20 @@
 <template>
-  <ul class="task-list">
-    <li v-for="task in taskStore.getAllTasks" :key="task.name">
-      {{ task.name }}
-    </li>
-  </ul>
+  <div class="task-list">
+    <Task v-for="task in taskStore.getAllTasks" :key="task.name" :task="task" />
+  </div>
 </template>
 
 <script lang="ts">
 import { useTaskStore } from "@/stores/taskStore";
 import { mapStores } from "pinia";
 import { defineComponent } from "vue";
+import Task from "@/components/task/Task.vue";
 
 export default defineComponent({
   name: "TaskListComponent",
+  components: {
+    Task,
+  },
   methods: {},
   computed: {
     ...mapStores(useTaskStore),
@@ -21,33 +23,14 @@ export default defineComponent({
 </script>
 
 <style lang="css">
-ul.task-list {
+.task-list {
   margin: 25px 25px;
-  list-style: none;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
   max-height: 80vh;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-}
-
-/* Extract to task component once this task is started */
-ul.task-list li {
-  color: #000000;
-  background-color: #ffffff;
-  min-height: 70px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  border-top-left-radius: 20px;
-  padding: 10px;
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-  margin-right: 10px;
-}
-
-ul.task-list li:hover {
-  cursor: grab;
 }
 
 ::-webkit-scrollbar {

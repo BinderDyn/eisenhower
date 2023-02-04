@@ -27,12 +27,14 @@ import { Task } from "@/models/Task";
 import { useTaskStore } from "@/stores/taskStore";
 import { mapStores } from "pinia";
 import { defineComponent } from "vue";
+import { v4 as uuidv4 } from "uuid";
 
 export default defineComponent({
   name: "AddTaskComponent",
   methods: {
     addTask(): void {
       this.taskStore.addTask({
+        id: uuidv4(),
         name: this.task.name,
         priority: this.task.priority,
       });

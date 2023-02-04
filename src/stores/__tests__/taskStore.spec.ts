@@ -18,10 +18,11 @@ describe("Task Store", () => {
   it("adds a tasks", () => {
     const store = useTaskStore();
 
-    store.addTask({ name: "task", priority: Priority.A });
+    store.addTask({ id: "id", name: "task", priority: Priority.A });
 
     expect(store.tasks.length).toBe(1);
     expect(store.tasks[0]).toStrictEqual({
+      id: "id",
       name: "task",
       priority: Priority.A,
     });
