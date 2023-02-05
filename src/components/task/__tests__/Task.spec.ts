@@ -3,6 +3,7 @@ import { useTaskStore } from "@/stores/taskStore";
 import { createTestingPinia } from "@pinia/testing";
 import { DOMWrapper, mount } from "@vue/test-utils";
 import Task from "../Task.vue";
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare let global: any;
 
 beforeAll(() => {
