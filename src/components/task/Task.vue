@@ -6,9 +6,9 @@
       </p>
       <input id="task-name-edit" v-if="editMode" v-model="copiedTask.name" />
     </div>
-    <div v-if="!editMode" class="task-priority">
+    <p v-if="!editMode" class="task-priority">
       {{ copiedTask.priority }}
-    </div>
+    </p>
     <select
       id="task-priority-edit"
       v-if="editMode"
@@ -30,7 +30,7 @@
         <button class="confirm-button" @click="updateTask()">
           <i class="fa fa-check"></i>
         </button>
-        <button class="abort-button" @click="editTask()">
+        <button class="abort-button" @click="abortEdit()">
           <i class="fa fa-xmark"></i>
         </button>
       </template>
@@ -81,8 +81,17 @@ export default defineComponent({
     editTask(): void {
       this.editMode = !this.editMode;
     },
+    abortEdit(): void {
+      this.copiedTask = {
+        name: this.task.name,
+        id: this.task.id,
+        priority: this.task.priority,
+      };
+      this.editTask();
+    },
     updateTask(): void {
-      console.log("updated");
+      this.editTask();
+      this.taskStore.updateTask(this.copiedTask);
     },
   },
   computed: {
@@ -188,5 +197,12 @@ export default defineComponent({
 
 .task-priority {
   flex-grow: 2;
+}
+
+#task-name-edit {
+  outline: 2px solid rgb(255, 76, 22);
+  text-align: center;
+  font-size: 1rem;
+  width: 80%;
 }
 </style>

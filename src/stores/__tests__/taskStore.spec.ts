@@ -49,4 +49,18 @@ describe("Task Store", () => {
     expect(store.tasks.length).toBe(1);
     expect(store.tasks[0].id).toBe("id2");
   });
+
+  it("updates a task", () => {
+    const store = useTaskStore();
+    store.tasks = [
+      { id: "id", name: "name", priority: Priority.A },
+      { id: "id2", name: "name", priority: Priority.A },
+    ];
+
+    store.updateTask({ id: "id", name: "nam123", priority: Priority.C });
+
+    expect(store.tasks[0].id).toBe("id");
+    expect(store.tasks[0].name).toBe("nam123");
+    expect(store.tasks[0].priority).toBe(Priority.C);
+  });
 });
