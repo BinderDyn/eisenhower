@@ -1,7 +1,7 @@
 import { Priority } from "@/models/Priority.enum";
 import { useTaskStore } from "@/stores/taskStore";
 import { createTestingPinia } from "@pinia/testing";
-import { DOMWrapper, mount } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import Task from "../Task.vue";
 declare let global: any;
 
@@ -46,4 +46,20 @@ test("does nothing if not confirmed", async () => {
   await wrapper.vm.$nextTick();
 
   expect(store.deleteTask).toHaveBeenCalledTimes(0);
+});
+
+test("there is an edit button visible", async () => {
+  const wrapper = mount(Task, {
+    attachTo: document.body,
+    global: {
+      plugins: [createTestingPinia()],
+    },
+    props: {
+      task: { id: "id", name: "name", priority: Priority.A },
+    },
+  });
+
+  const button = wrapper.find(".edit-button");
+
+  expect(button.exists()).toBeTruthy();
 });

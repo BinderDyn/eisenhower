@@ -8,17 +8,22 @@
     <div class="task-priority">
       {{ task.priority }}
     </div>
-    <button class="delete-button" @click="deleteTask(task.id)">
-      <i class="fa fa-trash"></i>
-    </button>
+    <div class="btn-group">
+      <button class="edit-button" @click="editTask()">
+        <i class="fa fa-pen"></i>
+      </button>
+      <button class="delete-button" @click="deleteTask(task.id)">
+        <i class="fa fa-trash"></i>
+      </button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
 import { Task } from "@/models/Task";
 import { useTaskStore } from "@/stores/taskStore";
-import { mapStores, storeToRefs } from "pinia";
+import { mapStores } from "pinia";
+import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
   name: "TaskComponent",
@@ -34,6 +39,9 @@ export default defineComponent({
         this.taskStore.deleteTask(taskId);
       }
     },
+    editTask(): void {
+      console.log("edit");
+    },
   },
   computed: {
     ...mapStores(useTaskStore),
@@ -45,7 +53,7 @@ export default defineComponent({
 .task-card {
   color: #000000;
   background-color: #ffffff;
-  min-height: 40px;
+  min-height: 55px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   border-top-left-radius: 20px;
@@ -56,26 +64,49 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .task-card:hover {
   cursor: grab;
 }
 
+.btn-group {
+  position: absolute;
+  display: flex;
+  gap: 10px;
+  right: 0;
+  bottom: -15px;
+}
+
 .delete-button {
-  position: relative;
   height: 30px;
   width: 30px;
   border-radius: 100%;
   background-color: rgb(180, 0, 0);
   color: #ffffff;
   right: -20px;
-  bottom: -20px;
+  bottom: -40px;
   cursor: pointer;
 }
 
 .delete-button:hover {
   background-color: rgb(112, 0, 0);
+}
+
+.edit-button {
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+  background-color: rgb(255, 153, 0);
+  color: #ffffff;
+  right: -20px;
+  top: -38px;
+  cursor: pointer;
+}
+
+.edit-button:hover {
+  background-color: rgb(186, 112, 0);
 }
 
 .task-name-wrapper {
