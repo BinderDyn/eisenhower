@@ -63,3 +63,28 @@ test("there is an edit button visible", async () => {
 
   expect(button.exists()).toBeTruthy();
 });
+
+test("is in edit mode after click on edit button", async () => {
+  const wrapper = mount(Task, {
+    attachTo: document.body,
+    global: {
+      plugins: [createTestingPinia()],
+    },
+    props: {
+      task: { id: "id", name: "name", priority: Priority.A },
+    },
+  });
+
+  const editButton = wrapper.find(".edit-button");
+  await editButton.trigger("click");
+  await wrapper.vm.$nextTick();
+  const taskNameEdit = wrapper.find("#task-name-edit");
+  const taskPriorityEdit = wrapper.find("#task-priority-edit");
+  const confirmButton = wrapper.find(".confirm-button");
+  const abortButton = wrapper.find(".abort-button");
+
+  expect(taskNameEdit.exists()).toBeTruthy();
+  expect(taskPriorityEdit.exists()).toBeTruthy();
+  expect(confirmButton.exists()).toBeTruthy();
+  expect(abortButton.exists()).toBeTruthy();
+});

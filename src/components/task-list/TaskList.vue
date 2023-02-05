@@ -5,10 +5,10 @@
 </template>
 
 <script lang="ts">
+import Task from "@/components/task/Task.vue";
 import { useTaskStore } from "@/stores/taskStore";
 import { mapStores } from "pinia";
 import { defineComponent } from "vue";
-import Task from "@/components/task/Task.vue";
 
 export default defineComponent({
   name: "TaskListComponent",

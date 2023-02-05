@@ -1,25 +1,53 @@
 <template>
   <div class="task-card">
     <div class="task-name-wrapper">
-      <p class="task-name">
-        {{ task.name }}
+      <p v-if="!editMode" class="task-name">
+        {{ copiedTask.name }}
       </p>
+      <input id="task-name-edit" v-if="editMode" v-model="copiedTask.name" />
     </div>
-    <div class="task-priority">
-      {{ task.priority }}
+    <div v-if="!editMode" class="task-priority">
+      {{ copiedTask.priority }}
     </div>
+    <select
+      id="task-priority-edit"
+      v-if="editMode"
+      v-model="copiedTask.priority"
+    >
+      <option
+        v-for="prio in Object.keys(Priority).filter((item) =>
+          isNaN(Number(item))
+        )"
+        :key="prio"
+        :value="prio"
+        :selected="prio === 'D'"
+      >
+        {{ prio }}
+      </option>
+    </select>
     <div class="btn-group">
-      <button class="edit-button" @click="editTask()">
-        <i class="fa fa-pen"></i>
-      </button>
-      <button class="delete-button" @click="deleteTask(task.id)">
-        <i class="fa fa-trash"></i>
-      </button>
+      <template v-if="editMode">
+        <button class="confirm-button" @click="updateTask()">
+          <i class="fa fa-check"></i>
+        </button>
+        <button class="abort-button" @click="editTask()">
+          <i class="fa fa-xmark"></i>
+        </button>
+      </template>
+      <template v-else>
+        <button class="edit-button" @click="editTask()">
+          <i class="fa fa-pen"></i>
+        </button>
+        <button class="delete-button" @click="deleteTask(task.id)">
+          <i class="fa fa-trash"></i>
+        </button>
+      </template>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import { Priority } from "@/models/Priority.enum";
 import { Task } from "@/models/Task";
 import { useTaskStore } from "@/stores/taskStore";
 import { mapStores } from "pinia";
@@ -27,6 +55,17 @@ import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
   name: "TaskComponent",
+  data() {
+    return {
+      editMode: false,
+      Priority: Priority,
+      copiedTask: {
+        name: this.task.name,
+        id: this.task.id,
+        priority: this.task.priority,
+      } as Task,
+    };
+  },
   props: {
     task: {
       type: Object as PropType<Task>,
@@ -40,7 +79,10 @@ export default defineComponent({
       }
     },
     editTask(): void {
-      console.log("edit");
+      this.editMode = !this.editMode;
+    },
+    updateTask(): void {
+      console.log("updated");
     },
   },
   computed: {
@@ -90,7 +132,19 @@ export default defineComponent({
   cursor: pointer;
 }
 
-.delete-button:hover {
+.abort-button {
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+  background-color: rgb(180, 0, 0);
+  color: #ffffff;
+  right: -20px;
+  bottom: -40px;
+  cursor: pointer;
+}
+
+.delete-button:hover,
+.abort-button:hover {
   background-color: rgb(112, 0, 0);
 }
 
@@ -107,6 +161,21 @@ export default defineComponent({
 
 .edit-button:hover {
   background-color: rgb(186, 112, 0);
+}
+
+.confirm-button {
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+  background-color: rgb(0, 255, 26);
+  color: #ffffff;
+  right: -20px;
+  top: -38px;
+  cursor: pointer;
+}
+
+.confirm-button:hover {
+  background-color: rgb(1, 177, 18);
 }
 
 .task-name-wrapper {
