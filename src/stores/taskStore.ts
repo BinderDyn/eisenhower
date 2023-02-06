@@ -28,8 +28,10 @@ export const useTaskStore = defineStore(taskStoreKey, {
       setTasks(savedTasks);
     },
     deleteTask(id: string) {
-      this.tasks = this.tasks.filter((t) => t.id !== id);
-      setTasks(this.tasks);
+      const tasks = this.tasks.length > 0 ? this.tasks.slice() : getTasks();
+      const filtered = tasks.filter((t) => t.id !== id);
+      setTasks(filtered);
+      this.tasks = filtered;
     },
     updateTask(task: Task) {
       const savedTasks = this.getAllTasks;
