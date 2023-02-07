@@ -1,5 +1,10 @@
 <template>
-  <div class="task-card">
+  <div
+    class="task-card"
+    draggable="true"
+    @dragstart="setIsDragged(true)"
+    @dragend="setIsDragged(false)"
+  >
     <div class="task-name-wrapper">
       <p v-if="!editMode" class="task-name">
         {{ copiedTask.name }}
@@ -25,7 +30,7 @@
         {{ prio }}
       </option>
     </select>
-    <div class="btn-group">
+    <div v-if="!isDragged" class="btn-group">
       <template v-if="editMode">
         <button class="confirm-button" @click="updateTask()">
           <i class="fa fa-check"></i>
@@ -64,6 +69,7 @@ export default defineComponent({
         id: this.task.id,
         priority: this.task.priority,
       } as Task,
+      isDragged: false,
     };
   },
   props: {
@@ -92,6 +98,9 @@ export default defineComponent({
     updateTask(): void {
       this.editTask();
       this.taskStore.updateTask(this.copiedTask);
+    },
+    setIsDragged(dragged: boolean): void {
+      this.isDragged = dragged;
     },
   },
   computed: {
