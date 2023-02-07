@@ -1,20 +1,47 @@
 <template>
   <div class="priority-area-wrapper">
-    <div class="priority-area b" style="border-top-left-radius: 25px">
+    <div
+      id="b-area"
+      class="priority-area b"
+      style="border-top-left-radius: 25px"
+      @drop.prevent="(event) => onDrop(event)"
+      @dragenter.prevent
+      @dragover.prevent
+    >
       <p class="priority-letter">B</p>
       <div class="priority-legend">Important but not urgent</div>
     </div>
-    <div class="priority-area a" style="border-top-right-radius: 25px">
+    <div
+      id="a-area"
+      class="priority-area a"
+      style="border-top-right-radius: 25px"
+      @drop.prevent="(event) => onDrop(event)"
+      @dragenter.prevent
+      @dragover.prevent
+    >
       <p class="priority-letter">A</p>
       <div class="priority-legend">Important and urgent</div>
     </div>
   </div>
-  <div class="priority-area-wrapper">
+  <div
+    id="d-area"
+    class="priority-area-wrapper"
+    @drop.prevent="(event) => onDrop(event)"
+    @dragenter.prevent
+    @dragover.prevent
+  >
     <div class="priority-area d" style="border-bottom-left-radius: 25px">
       <p class="priority-letter">D</p>
       <div class="priority-legend">Not important and not urgent</div>
     </div>
-    <div class="priority-area c" style="border-bottom-right-radius: 25px">
+    <div
+      id="c-area"
+      class="priority-area c"
+      style="border-bottom-right-radius: 25px"
+      @drop.prevent="(event) => onDrop(event)"
+      @dragenter.prevent
+      @dragover.prevent
+    >
       <p class="priority-letter">C</p>
       <div class="priority-legend">Not important but urgent</div>
     </div>
@@ -23,9 +50,31 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { TaskModel } from "@/models/Task";
+import { mapStores } from "pinia";
+import { useTaskStore } from "../../stores/taskStore";
 
 export default defineComponent({
   name: "MatrixComponent",
+  methods: {
+    onDrop(payload: DragEvent) {
+      if (payload.dataTransfer != null) {
+        console.log(payload);
+        const data = payload.dataTransfer.getData("task");
+        console.log(data);
+        if (data != null) {
+          const task = JSON.parse(data) as TaskModel;
+          task.xPosition = (payload.clientX / window.innerWidth) * 100;
+          task.yPosition = (payload.clientY / window.innerHeight) * 100;
+          console.log(task);
+          this.taskStore.updateTask(task);
+        }
+      }
+    },
+  },
+  computed: {
+    ...mapStores(useTaskStore),
+  },
 });
 </script>
 

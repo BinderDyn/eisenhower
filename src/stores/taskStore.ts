@@ -1,8 +1,8 @@
-import { Task } from "@/models/Task";
+import { TaskModel } from "@/models/Task";
 import { defineStore } from "pinia";
 
 interface ITasksState {
-  tasks: Task[];
+  tasks: TaskModel[];
 }
 
 const taskStoreKey = "task";
@@ -21,7 +21,7 @@ export const useTaskStore = defineStore(taskStoreKey, {
     },
   },
   actions: {
-    addTask(task: Task) {
+    addTask(task: TaskModel) {
       this.tasks.push(task);
       const savedTasks = getTasks();
       savedTasks.push(task);
@@ -33,7 +33,7 @@ export const useTaskStore = defineStore(taskStoreKey, {
       setTasks(filtered);
       this.tasks = filtered;
     },
-    updateTask(task: Task) {
+    updateTask(task: TaskModel) {
       const savedTasks = this.getAllTasks;
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const toBeUpdatedTask = savedTasks.find((st) => st.id === task.id)!;
@@ -47,12 +47,12 @@ export const useTaskStore = defineStore(taskStoreKey, {
   },
 });
 
-const getTasks = (): Task[] => {
+const getTasks = (): TaskModel[] => {
   const tasks = localStorage.getItem(localStorageKey);
   if (tasks == null || tasks == undefined) return [];
   else return JSON.parse(tasks);
 };
 
-const setTasks = (tasks: Task[]): void => {
+const setTasks = (tasks: TaskModel[]): void => {
   localStorage.setItem(localStorageKey, JSON.stringify(tasks));
 };
