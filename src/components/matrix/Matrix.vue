@@ -1,49 +1,42 @@
 <template>
-  <div class="priority-area-wrapper">
-    <div
-      id="b-area"
-      class="priority-area b"
-      style="border-top-left-radius: 25px"
-      @drop.prevent="(event) => onDrop(event)"
-      @dragenter.prevent
-      @dragover.prevent
-    >
-      <p class="priority-letter">B</p>
-      <div class="priority-legend">Important but not urgent</div>
-    </div>
-    <div
-      id="a-area"
-      class="priority-area a"
-      style="border-top-right-radius: 25px"
-      @drop.prevent="(event) => onDrop(event)"
-      @dragenter.prevent
-      @dragover.prevent
-    >
-      <p class="priority-letter">A</p>
-      <div class="priority-legend">Important and urgent</div>
-    </div>
-  </div>
   <div
-    id="d-area"
-    class="priority-area-wrapper"
+    id="task-position-zone"
     @drop.prevent="(event) => onDrop(event)"
     @dragenter.prevent
     @dragover.prevent
   >
-    <div class="priority-area d" style="border-bottom-left-radius: 25px">
-      <p class="priority-letter">D</p>
-      <div class="priority-legend">Not important and not urgent</div>
+    <BoardTask
+      v-for="task in taskStore.getAllTasks"
+      :key="task.id"
+      :task="task"
+    />
+    <div class="priority-area-wrapper">
+      <div
+        id="b-area"
+        class="priority-area b"
+        style="border-top-left-radius: 25px"
+      >
+        <p class="priority-letter">B</p>
+        <div class="priority-legend">Important but not urgent</div>
+      </div>
+      <div
+        id="a-area"
+        class="priority-area a"
+        style="border-top-right-radius: 25px"
+      >
+        <p class="priority-letter">A</p>
+        <div class="priority-legend">Important and urgent</div>
+      </div>
     </div>
-    <div
-      id="c-area"
-      class="priority-area c"
-      style="border-bottom-right-radius: 25px"
-      @drop.prevent="(event) => onDrop(event)"
-      @dragenter.prevent
-      @dragover.prevent
-    >
-      <p class="priority-letter">C</p>
-      <div class="priority-legend">Not important but urgent</div>
+    <div id="d-area" class="priority-area-wrapper">
+      <div class="priority-area d" style="border-bottom-left-radius: 25px">
+        <p class="priority-letter">D</p>
+        <div class="priority-legend">Not important and not urgent</div>
+      </div>
+      <div id="c-area" class="priority-area c">
+        <p class="priority-letter">C</p>
+        <div class="priority-legend">Not important but urgent</div>
+      </div>
     </div>
   </div>
 </template>
@@ -53,20 +46,23 @@ import { defineComponent } from "vue";
 import { TaskModel } from "@/models/Task";
 import { mapStores } from "pinia";
 import { useTaskStore } from "../../stores/taskStore";
+import BoardTask from "../board-task/BoardTask.vue";
 
 export default defineComponent({
   name: "MatrixComponent",
   methods: {
     onDrop(payload: DragEvent) {
       if (payload.dataTransfer != null) {
-        console.log(payload);
         const data = payload.dataTransfer.getData("task");
-        console.log(data);
         if (data != null) {
+          const taskPositionZone =
+            document.getElementById("task-position-zone");
           const task = JSON.parse(data) as TaskModel;
-          task.xPosition = (payload.clientX / window.innerWidth) * 100;
-          task.yPosition = (payload.clientY / window.innerHeight) * 100;
-          console.log(task);
+          if (taskPositionZone != null) {
+            console.log(payload.offsetX, payload.offsetY);
+            task.xPosition = payload.pageX / taskPositionZone?.clientWidth;
+            task.yPosition = payload.pageY / taskPositionZone?.clientHeight;
+          }
           this.taskStore.updateTask(task);
         }
       }
@@ -75,10 +71,17 @@ export default defineComponent({
   computed: {
     ...mapStores(useTaskStore),
   },
+  components: { BoardTask },
 });
 </script>
 
 <style lang="css">
+#task-position-zone {
+  position: relative;
+  height: 100%;
+  z-index: 98;
+}
+
 .priority-area-wrapper {
   display: flex;
   flex-wrap: wrap;

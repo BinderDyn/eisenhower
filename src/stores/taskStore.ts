@@ -39,6 +39,8 @@ export const useTaskStore = defineStore(taskStoreKey, {
       const toBeUpdatedTask = savedTasks.find((st) => st.id === task.id)!;
       toBeUpdatedTask.name = task.name;
       toBeUpdatedTask.priority = task.priority;
+      toBeUpdatedTask.xPosition = task.xPosition;
+      toBeUpdatedTask.yPosition = task.yPosition;
       setTasks(savedTasks);
 
       // Update state

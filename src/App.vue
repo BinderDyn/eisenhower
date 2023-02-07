@@ -47,6 +47,7 @@ export default defineComponent({
 html,
 body {
   height: 100%;
+  user-select: none;
 }
 
 #app {
