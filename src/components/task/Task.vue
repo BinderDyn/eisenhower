@@ -68,6 +68,8 @@ export default defineComponent({
         name: this.task.name,
         id: this.task.id,
         priority: this.task.priority,
+        xPosition: this.task.xPosition,
+        yPosition: this.task.yPosition,
       } as TaskModel,
       isDragged: false,
     };

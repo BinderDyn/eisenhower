@@ -5,8 +5,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
 import Matrix from "@/components/matrix/Matrix.vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "HomeView",
@@ -19,7 +19,7 @@ export default defineComponent({
 <style lang="css">
 .matrix-wrapper {
   display: block;
-  height: 50%;
+  height: 100%;
   margin: 0 20px;
 }
 </style>

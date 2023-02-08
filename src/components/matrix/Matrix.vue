@@ -28,8 +28,12 @@
         <div class="priority-legend">Important and urgent</div>
       </div>
     </div>
-    <div id="d-area" class="priority-area-wrapper">
-      <div class="priority-area d" style="border-bottom-left-radius: 25px">
+    <div class="priority-area-wrapper">
+      <div
+        id="d-area"
+        class="priority-area d"
+        style="border-bottom-left-radius: 25px"
+      >
         <p class="priority-letter">D</p>
         <div class="priority-legend">Not important and not urgent</div>
       </div>
@@ -42,9 +46,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
 import { TaskModel } from "@/models/Task";
 import { mapStores } from "pinia";
+import { defineComponent } from "vue";
 import { useTaskStore } from "../../stores/taskStore";
 import BoardTask from "../board-task/BoardTask.vue";
 
@@ -59,9 +63,11 @@ export default defineComponent({
             document.getElementById("task-position-zone");
           const task = JSON.parse(data) as TaskModel;
           if (taskPositionZone != null) {
-            console.log(payload.offsetX, payload.offsetY);
-            task.xPosition = payload.pageX / taskPositionZone?.clientWidth;
-            task.yPosition = payload.pageY / taskPositionZone?.clientHeight;
+            task.xPosition =
+              payload.clientX / taskPositionZone?.getBoundingClientRect().width;
+            task.yPosition =
+              payload.clientY /
+              taskPositionZone?.getBoundingClientRect().height;
           }
           this.taskStore.updateTask(task);
         }
@@ -87,7 +93,7 @@ export default defineComponent({
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
-  height: 100%;
+  height: 50%;
 }
 
 .priority-area-wrapper:last-child {

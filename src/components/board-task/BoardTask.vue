@@ -27,8 +27,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
 import { TaskModel } from "@/models/Task";
+import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
   props: {
@@ -65,12 +65,13 @@ export default defineComponent({
     ) {
       const taskPositionZone = document.getElementById("task-position-zone");
       if (taskPositionZone != null) {
+        const padding = 10;
         const calculated =
           relativePosition *
           (height
-            ? taskPositionZone.clientHeight
-            : taskPositionZone.clientWidth) *
-          1;
+            ? taskPositionZone.getBoundingClientRect().height - padding
+            : taskPositionZone.getBoundingClientRect().width - padding);
+        console.log(calculated + (height ? "y" : "x"));
         return calculated;
       }
       return 0;
@@ -87,5 +88,6 @@ export default defineComponent({
   background-color: white;
   z-index: 99;
   width: 120px;
+  margin: 0;
 }
 </style>
