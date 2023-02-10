@@ -66,11 +66,12 @@ export default defineComponent({
       const taskPositionZone = document.getElementById("task-position-zone");
       if (taskPositionZone != null) {
         const padding = 10;
-        const calculated =
+        const calculated = Math.round(
           relativePosition *
-          (height
-            ? taskPositionZone.getBoundingClientRect().height - padding
-            : taskPositionZone.getBoundingClientRect().width - padding);
+            (height
+              ? taskPositionZone.offsetTop - padding
+              : taskPositionZone.offsetLeft - padding)
+        );
         console.log(calculated + (height ? "y" : "x"));
         return calculated;
       }
@@ -84,10 +85,11 @@ export default defineComponent({
 @import url("@/css/task.css");
 
 .board-card {
-  position: absolute;
+  height: 50px;
   background-color: white;
   z-index: 99;
   width: 120px;
   margin: 0;
+  min-width: 80px;
 }
 </style>
