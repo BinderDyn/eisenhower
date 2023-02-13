@@ -80,12 +80,10 @@ test("is in edit mode after click on edit button", async () => {
   await editButton.trigger("click");
   await wrapper.vm.$nextTick();
   const taskNameEdit = wrapper.find("#task-name-edit");
-  const taskPriorityEdit = wrapper.find("#task-priority-edit");
   const confirmButton = wrapper.find(".confirm-button");
   const abortButton = wrapper.find(".abort-button");
 
   expect(taskNameEdit.exists()).toBeTruthy();
-  expect(taskPriorityEdit.exists()).toBeTruthy();
   expect(confirmButton.exists()).toBeTruthy();
   expect(abortButton.exists()).toBeTruthy();
 });
@@ -107,12 +105,8 @@ test("updates task on confirm", async () => {
   await wrapper.vm.$nextTick();
   const taskNameEdit: DOMWrapper<HTMLInputElement> =
     wrapper.find("#task-name-edit");
-  const taskPriorityEdit: DOMWrapper<HTMLInputElement> = wrapper.find(
-    "#task-priority-edit"
-  );
 
   await taskNameEdit.setValue("test");
-  await taskPriorityEdit.setValue("C");
 
   const confirmButton = wrapper.find(".confirm-button");
   await confirmButton.trigger("click");
@@ -125,7 +119,7 @@ test("updates task on confirm", async () => {
   expect(store.updateTask).toHaveBeenCalledWith({
     id: "id",
     name: "test",
-    priority: "C",
+    priority: "A",
   });
 });
 
@@ -146,21 +140,14 @@ test("doesn nothing on update abort and resets", async () => {
   await wrapper.vm.$nextTick();
   const taskNameEdit: DOMWrapper<HTMLInputElement> =
     wrapper.find("#task-name-edit");
-  const taskPriorityEdit: DOMWrapper<HTMLInputElement> = wrapper.find(
-    "#task-priority-edit"
-  );
   const abortButton = wrapper.find(".abort-button");
 
   await taskNameEdit.setValue("test");
-  await taskPriorityEdit.setValue("C");
   await abortButton.trigger("click");
   await wrapper.vm.$nextTick();
   const taskName: DOMWrapper<HTMLParagraphElement> = wrapper.find(".task-name");
-  const taskPriority: DOMWrapper<HTMLDivElement> =
-    wrapper.find(".task-priority");
 
   expect(editButton.exists()).toBeTruthy();
   expect(taskName.element.textContent).toBe("name");
-  expect(taskPriority.element.textContent).toBe(Priority.A.toString());
   expect(store.updateTask).toHaveBeenCalledTimes(0);
 });

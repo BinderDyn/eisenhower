@@ -92,13 +92,9 @@
     text-overflow: ellipsis;
 }
 
-.task-priority {
-    flex-grow: 2;
-}
-
 #task-name-edit {
     outline: 2px solid rgb(255, 76, 22);
     text-align: center;
     font-size: 1rem;
-    width: 80%;
+    margin: 0 10px;
 }

@@ -4,6 +4,4 @@ export interface TaskModel {
   id: string;
   name: string;
   priority: Priority;
-  xPosition?: number;
-  yPosition?: number;
 }

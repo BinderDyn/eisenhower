@@ -16,15 +16,6 @@ test("sets task name", async () => {
   expect(input.element.value).toBe("test");
 });
 
-test("sets task priority", async () => {
-  const wrapper = mount(AddTaskComponent);
-  const input: DOMWrapper<HTMLInputElement> = wrapper.find("#task-priority");
-
-  await input.setValue("A");
-
-  expect(input.element.value).toBe("A");
-});
-
 test("submits on button click", async () => {
   const wrapper = mount(AddTaskComponent, {
     attachTo: document.body,

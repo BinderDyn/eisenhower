@@ -4,18 +4,6 @@
     draggable="true"
     @dragstart="(ev) => setDragging(true, ev)"
     @dragend="setDragging(false)"
-    :style="{
-      top:
-        calculateAbsoluteDistanceInRelationToScreenSize(
-          copiedTask.yPosition ?? 1,
-          true
-        ) + 'px',
-      left:
-        calculateAbsoluteDistanceInRelationToScreenSize(
-          copiedTask.xPosition ?? 1,
-          false
-        ) + 'px',
-    }"
   >
     <div class="task-name-wrapper">
       <p class="task-name">{{ copiedTask.name }}</p>
@@ -43,8 +31,6 @@ export default defineComponent({
         name: this.task.name,
         id: this.task.id,
         priority: this.task.priority,
-        xPosition: this.task.xPosition,
-        yPosition: this.task.yPosition,
       } as TaskModel,
       isDragged: false,
     };

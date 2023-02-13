@@ -3,18 +3,6 @@
     <form id="add-task-form" @submit.prevent="addTask()">
       <div class="flex">
         <input type="text" id="task-name" required="true" v-model="task.name" />
-        <select id="task-priority" v-model="task.priority">
-          <option
-            v-for="prio in Object.keys(Priority).filter((item) =>
-              isNaN(Number(item))
-            )"
-            :key="prio"
-            :value="prio"
-            :selected="prio === 'D'"
-          >
-            {{ prio }}
-          </option>
-        </select>
       </div>
       <input id="submit-form-btn" type="submit" value="Add task" />
     </form>
@@ -26,8 +14,8 @@ import { Priority } from "@/models/Priority.enum";
 import { TaskModel } from "@/models/Task";
 import { useTaskStore } from "@/stores/taskStore";
 import { mapStores } from "pinia";
-import { defineComponent } from "vue";
 import { v4 as uuidv4 } from "uuid";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "AddTaskComponent",

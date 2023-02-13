@@ -103,6 +103,9 @@ export default defineComponent({
         if (data != null) {
           const task = JSON.parse(data) as TaskModel;
           const taskDropZone = (payload.target as HTMLElement).closest("div");
+
+          if (!taskDropZone?.id.includes("area")) return;
+
           if (taskDropZone != null) {
             const dropZoneId = taskDropZone.id;
 
@@ -114,7 +117,6 @@ export default defineComponent({
             };
 
             task.priority = priorityDict[dropZoneId.toUpperCase()[0]];
-            console.log(task);
             this.taskStore.updateTask(task);
           }
         }
@@ -146,6 +148,7 @@ export default defineComponent({
   height: 100%;
   text-align: right;
   position: relative;
+  z-index: 99;
 }
 
 .task-zone {

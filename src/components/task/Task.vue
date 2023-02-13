@@ -11,25 +11,6 @@
       </p>
       <input id="task-name-edit" v-if="editMode" v-model="copiedTask.name" />
     </div>
-    <p v-if="!editMode" class="task-priority">
-      {{ copiedTask.priority }}
-    </p>
-    <select
-      id="task-priority-edit"
-      v-if="editMode"
-      v-model="copiedTask.priority"
-    >
-      <option
-        v-for="prio in Object.keys(Priority).filter((item) =>
-          isNaN(Number(item))
-        )"
-        :key="prio"
-        :value="prio"
-        :selected="prio === 'D'"
-      >
-        {{ prio }}
-      </option>
-    </select>
     <div v-if="!isDragged" class="btn-group">
       <template v-if="editMode">
         <button class="confirm-button" @click="updateTask()">
@@ -68,8 +49,6 @@ export default defineComponent({
         name: this.task.name,
         id: this.task.id,
         priority: this.task.priority,
-        xPosition: this.task.xPosition,
-        yPosition: this.task.yPosition,
       } as TaskModel,
       isDragged: false,
     };
@@ -94,8 +73,6 @@ export default defineComponent({
         name: this.task.name,
         id: this.task.id,
         priority: this.task.priority,
-        xPosition: this.task.xPosition,
-        yPosition: this.task.yPosition,
       };
       this.editTask();
     },
