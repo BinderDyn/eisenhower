@@ -28,7 +28,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  max-height: 80vh;
+  max-height: 62vh;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 }
