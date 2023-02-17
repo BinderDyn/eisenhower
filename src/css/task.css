@@ -84,10 +84,6 @@
     background-color: rgb(1, 177, 18);
 }
 
-.task-name-wrapper {
-    flex-grow: 8;
-}
-
 .task-name {
     text-overflow: ellipsis;
 }

@@ -8,9 +8,6 @@
     <div class="task-name-wrapper">
       <p class="task-name">{{ copiedTask.name }}</p>
     </div>
-    <p class="task-priority">
-      {{ copiedTask.priority }}
-    </p>
   </div>
 </template>
 
@@ -75,7 +72,10 @@ export default defineComponent({
   background-color: white;
   z-index: 99;
   width: 120px;
-  margin: 0;
+  margin: 5px;
   min-width: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

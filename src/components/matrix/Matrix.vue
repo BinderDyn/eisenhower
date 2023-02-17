@@ -155,9 +155,9 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   display: flex;
+  justify-content: flex-start;
   position: absolute;
   flex-wrap: wrap;
-  gap: 10px;
 }
 
 .priority-letter {
