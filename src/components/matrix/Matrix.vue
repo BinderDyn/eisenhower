@@ -17,7 +17,7 @@
         />
       </div>
       <p class="priority-letter">B</p>
-      <div class="priority-legend">Important but not urgent</div>
+      <div class="priority-legend">Wichtig, aber nicht dringend</div>
     </div>
     <div
       class="priority-area a"
@@ -36,7 +36,7 @@
         />
       </div>
       <p class="priority-letter">A</p>
-      <div class="priority-legend">Important and urgent</div>
+      <div class="priority-legend">Wichtig und dringend</div>
     </div>
   </div>
   <div class="priority-area-wrapper">
@@ -58,7 +58,7 @@
       </div>
 
       <p class="priority-letter">D</p>
-      <div class="priority-legend">Not important and not urgent</div>
+      <div class="priority-legend">Unwichtig und nicht dringend</div>
     </div>
     <div
       class="priority-area c"
@@ -76,7 +76,7 @@
         />
       </div>
       <p class="priority-letter">C</p>
-      <div class="priority-legend">Not important but urgent</div>
+      <div class="priority-legend">Nicht wichtig, aber dringend</div>
     </div>
   </div>
 </template>

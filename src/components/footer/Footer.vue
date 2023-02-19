@@ -6,7 +6,7 @@
       ></a>
       |
       <router-link to="/legal-and-privacy">
-        <i class="fa-solid fa-section"></i> Legal and Privacy
+        <i class="fa-solid fa-section"></i> Impressum und Datenschutz
       </router-link>
     </nav>
   </footer>
