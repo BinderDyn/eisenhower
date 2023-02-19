@@ -119,7 +119,7 @@ export default defineComponent({
             const priority = priorityDict[dropZoneId.toUpperCase()[0]];
             if (this.taskStore.getTasksForPriority(priority).length >= 9) {
               alert(
-                "You cannot drop it here because there is a limit of 9 tasks for each priority. Consider completing your tasks for this priority first."
+                "Du kannst diese Aufgabe nicht hier ablegen, da das Limit von 9 Aufgaben für diese Priorität bereits erreicht wurde. Arbeite zunächst die Aufgaben dieser Priorität ab."
               );
               return;
             }

@@ -4,7 +4,7 @@
       <div class="flex">
         <input type="text" id="task-name" required="true" v-model="task.name" />
       </div>
-      <input id="submit-form-btn" type="submit" value="Add task" />
+      <input id="submit-form-btn" type="submit" value="Aufgabe hinzufügen" />
     </form>
   </div>
 </template>
@@ -26,6 +26,8 @@ export default defineComponent({
         name: this.task.name,
         priority: this.task.priority,
       });
+      const input = document.getElementById("task-name");
+      (input as HTMLInputElement).value = "";
     },
   },
   data() {
@@ -67,7 +69,7 @@ select {
 input[type="submit"] {
   cursor: pointer;
   height: 40px;
-  width: 120px;
+  width: 200px;
   margin: 15px 0px;
   border-radius: 15px;
   background-color: rgb(0, 0, 156);

@@ -61,7 +61,7 @@ export default defineComponent({
       }
     },
     deleteTask(taskId: string) {
-      if (confirm("Do you really want to delete this task?")) {
+      if (confirm("Willst du diese Aufgabe wirklich löschen?")) {
         this.taskStore.deleteTask(taskId);
       }
     },
