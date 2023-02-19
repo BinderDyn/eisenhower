@@ -1,6 +1,10 @@
 <template>
   <div class="task-list">
-    <Task v-for="task in taskStore.getAllTasks" :key="task.name" :task="task" />
+    <Task
+      v-for="task in taskStore.getWithoutPriority"
+      :key="task.name"
+      :task="task"
+    />
   </div>
 </template>
 

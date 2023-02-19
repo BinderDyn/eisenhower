@@ -24,6 +24,18 @@ describe("Task Store", () => {
     expect(tasks.length).toBe(1);
   });
 
+  it("gets only tasks with no priority if availlable", () => {
+    const store = useTaskStore();
+    store.tasks = [
+      { id: "abc", name: "test", priority: Priority.A },
+      { id: "abc", name: "test", priority: undefined },
+    ];
+
+    const tasks = store.getWithoutPriority;
+
+    expect(tasks.length).toBe(1);
+  });
+
   it("adds a tasks", () => {
     const store = useTaskStore();
 

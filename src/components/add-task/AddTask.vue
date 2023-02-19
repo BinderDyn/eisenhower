@@ -32,7 +32,7 @@ export default defineComponent({
     return {
       task: {
         name: "",
-        priority: Priority.D,
+        priority: undefined,
       } as TaskModel,
       Priority: Priority,
     };

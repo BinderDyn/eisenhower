@@ -18,21 +18,22 @@ test("renders task list", async () => {
   expect(taskListComponent.exists()).toBeTruthy();
 });
 
-// TODO: Make this test working
-// test("renders task components", async () => {
-//   const store = useTaskStore();
-//   store.tasks = [
-//     { id: "someId", name: "some task", priority: Priority.A },
-//     { id: "someOtherId", name: "someOtherTask", priority: Priority.B },
-//   ];
-//   const wrapper = mount(TaskListVue, {
-//     attachTo: document.body,
-//     global: {
-//       plugins: [createTestingPinia()],
-//     },
-//   });
+test("renders task components only if no priority set", async () => {
+  const wrapper = mount(TaskListVue, {
+    attachTo: document.body,
+    global: {
+      plugins: [createTestingPinia()],
+    },
+  });
+  const store = useTaskStore();
+  store.tasks = [
+    { id: "someId", name: "some task", priority: Priority.A },
+    { id: "someOtherId", name: "someOtherTask", priority: Priority.B },
+    { id: "someOtherId", name: "someOtherTask", priority: undefined },
+  ];
+  await wrapper.vm.$nextTick();
 
-//   const taskComponent = wrapper.findAll(".task-card");
+  const taskComponent = wrapper.findAll(".task-card");
 
-//   expect(taskComponent.length).toBe(2);
-// });
+  expect(taskComponent.length).toBe(1);
+});

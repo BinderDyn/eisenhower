@@ -14,10 +14,17 @@ export const useTaskStore = defineStore(taskStoreKey, {
     getAllTasks(state: ITasksState) {
       const tasks = state.tasks.length > 0 ? state.tasks.slice() : getTasks();
       return tasks.sort((a, b) => {
-        if (a.priority > b.priority) return 1;
-        if (a.priority < b.priority) return -1;
+        if (a.priority && b.priority) {
+          if (a.priority > b.priority) return 1;
+          if (a.priority < b.priority) return -1;
+        }
+
         return 0;
       });
+    },
+    getWithoutPriority(state: ITasksState) {
+      const tasks = state.tasks.length > 0 ? state.tasks.slice() : getTasks();
+      return tasks.filter((t) => t.priority == null || t.priority == undefined);
     },
   },
   actions: {
