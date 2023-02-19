@@ -1,3 +1,4 @@
+import { Priority } from "@/models/Priority.enum";
 import { TaskModel } from "@/models/Task";
 import { defineStore } from "pinia";
 
@@ -50,6 +51,11 @@ export const useTaskStore = defineStore(taskStoreKey, {
 
       // Update state
       this.tasks = getTasks();
+    },
+    getTasksForPriority(priority: Priority): TaskModel[] {
+      const savedTasks = this.getAllTasks;
+
+      return savedTasks.filter((task) => task.priority === priority);
     },
   },
 });

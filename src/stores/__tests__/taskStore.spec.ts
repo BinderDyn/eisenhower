@@ -75,4 +75,16 @@ describe("Task Store", () => {
     expect(store.tasks[0].name).toBe("nam123");
     expect(store.tasks[0].priority).toBe(Priority.C);
   });
+
+  it("gets tasks for specific priority", () => {
+    const store = useTaskStore();
+    store.tasks = [
+      { id: "id", name: "name", priority: Priority.A },
+      { id: "id2", name: "name", priority: Priority.B },
+    ];
+
+    const tasks = store.getTasksForPriority(Priority.B);
+
+    expect(tasks.length).toBe(1);
+  });
 });

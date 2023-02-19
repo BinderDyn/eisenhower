@@ -116,7 +116,15 @@ export default defineComponent({
               D: Priority.D,
             };
 
-            task.priority = priorityDict[dropZoneId.toUpperCase()[0]];
+            const priority = priorityDict[dropZoneId.toUpperCase()[0]];
+            if (this.taskStore.getTasksForPriority(priority).length >= 9) {
+              alert(
+                "You cannot drop it here because there is a limit of 9 tasks for each priority. Consider completing your tasks for this priority first."
+              );
+              return;
+            }
+
+            task.priority = priority;
             this.taskStore.updateTask(task);
           }
         }
