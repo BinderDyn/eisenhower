@@ -23,10 +23,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
 import Footer from "@/components/footer/Footer.vue";
-import TaskList from "./components/task-list/TaskList.vue";
+import { defineComponent } from "vue";
 import AddTask from "./components/add-task/AddTask.vue";
+import TaskList from "./components/task-list/TaskList.vue";
 
 export default defineComponent({
   components: {
