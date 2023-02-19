@@ -6,14 +6,28 @@
     @dragend="setDragging(false)"
   >
     <div class="task-name-wrapper">
-      <p class="task-name">{{ copiedTask.name }}</p>
+      <p v-if="!editMode" class="task-name">
+        {{ copiedTask.name }}
+      </p>
+      <input id="task-name-edit" v-if="editMode" v-model="copiedTask.name" />
+    </div>
+    <div v-if="!isDragged">
+      <TaskEdit
+        @edit="editTask()"
+        @abort="abortEdit()"
+        @confirm="updateTask()"
+        @delete="deleteTask(task.id)"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { TaskModel } from "@/models/Task";
+import { useTaskStore } from "@/stores/taskStore";
+import { mapStores } from "pinia";
 import { defineComponent, PropType } from "vue";
+import TaskEdit from "../task-edit/TaskEdit.vue";
 
 export default defineComponent({
   props: {
@@ -30,37 +44,43 @@ export default defineComponent({
         priority: this.task.priority,
       } as TaskModel,
       isDragged: false,
+      editMode: false,
     };
   },
   methods: {
     setDragging(dragging: boolean, ev?: DragEvent): void {
       this.isDragged = dragging;
-
       if (ev != null && ev.dataTransfer != null) {
         ev.dataTransfer.dropEffect = "move";
         ev.dataTransfer.effectAllowed = "move";
         ev.dataTransfer.setData("task", JSON.stringify(this.copiedTask));
       }
     },
-    calculateAbsoluteDistanceInRelationToScreenSize(
-      relativePosition: number,
-      height: boolean
-    ) {
-      const taskPositionZone = document.getElementById("task-position-zone");
-      if (taskPositionZone != null) {
-        const padding = 10;
-        const calculated = Math.round(
-          relativePosition *
-            (height
-              ? taskPositionZone.offsetTop - padding
-              : taskPositionZone.offsetLeft - padding)
-        );
-        console.log(calculated + (height ? "y" : "x"));
-        return calculated;
+    deleteTask(taskId: string) {
+      if (confirm("Do you really want to delete this task?")) {
+        this.taskStore.deleteTask(taskId);
       }
-      return 0;
+    },
+    editTask(): void {
+      this.editMode = !this.editMode;
+    },
+    abortEdit(): void {
+      this.copiedTask = {
+        name: this.task.name,
+        id: this.task.id,
+        priority: this.task.priority,
+      };
+      this.editTask();
+    },
+    updateTask(): void {
+      this.editTask();
+      this.taskStore.updateTask(this.copiedTask);
     },
   },
+  computed: {
+    ...mapStores(useTaskStore),
+  },
+  components: { TaskEdit },
 });
 </script>
 
@@ -77,5 +97,9 @@ export default defineComponent({
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+#task-name-edit {
+  width: 80%;
 }
 </style>

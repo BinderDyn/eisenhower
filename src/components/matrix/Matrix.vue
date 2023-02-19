@@ -166,6 +166,7 @@ export default defineComponent({
   justify-content: flex-start;
   position: absolute;
   flex-wrap: wrap;
+  overflow-y: scroll;
 }
 
 .priority-letter {

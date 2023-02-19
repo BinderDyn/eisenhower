@@ -74,6 +74,12 @@ test("is in edit mode after click on edit button", async () => {
     props: {
       task: { id: "id", name: "name", priority: Priority.A },
     },
+    data() {
+      return {
+        isDragged: false,
+        editMode: false,
+      };
+    },
   });
 
   const editButton = wrapper.find(".edit-button");
@@ -123,7 +129,7 @@ test("updates task on confirm", async () => {
   });
 });
 
-test("doesn nothing on update abort and resets", async () => {
+test("does nothing on update abort and resets", async () => {
   const wrapper = mount(Task, {
     attachTo: document.body,
     global: {
@@ -133,11 +139,11 @@ test("doesn nothing on update abort and resets", async () => {
       task: { id: "id", name: "name", priority: Priority.A },
     },
   });
-
   const store = useTaskStore();
   const editButton = wrapper.find(".edit-button");
   await editButton.trigger("click");
   await wrapper.vm.$nextTick();
+
   const taskNameEdit: DOMWrapper<HTMLInputElement> =
     wrapper.find("#task-name-edit");
   const abortButton = wrapper.find(".abort-button");
