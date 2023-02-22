@@ -77,6 +77,7 @@ body {
   display: flex;
   flex-direction: column;
   margin-top: 30px;
+  height: 90%;
 }
 
 #footer-area {

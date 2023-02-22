@@ -415,7 +415,6 @@ hr {
 }
 
 .privacy-wrapper {
-  height: 300px;
   overflow-y: scroll;
 }
 </style>
